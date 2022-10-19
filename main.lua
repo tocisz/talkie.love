@@ -7,7 +7,7 @@ local function decode8x(s, d, m)
 	for i = 1, string.len(s) do
 		table.insert(a, love.data.unpack(d, s, i)*m)
 	end
-	return a, string.len(s)
+	return a
 end
 local function decode8(s) return decode8x(s, "b", 1/2^7) end
 local function decode8u(s) return decode8x(s, "B", 1/2^9) end
@@ -19,10 +19,10 @@ local function decode16(s)
 	for i = 1, string.len(s)/2 do
 		table.insert(a, love.data.unpack("<h", s, i*2-1)*m)
 	end
-	return a, string.len(s)/2
+	return a
 end
 
-local chirp, chirp_len = decode8("\0*\212\50\178\18%\20\2\225\197\2_Z\5\15&\252\165\165\214\221\220\252%+\34!\15\255"..
+local chirp = decode8("\0*\212\50\178\18%\20\2\225\197\2_Z\5\15&\252\165\165\214\221\220\252%+\34!\15\255"..
 	"\248\238\237\239\247\246\250\0\3\2\1")
 local tmsEnergy = decode8u("\0\2\3\4\5\7\10\15\20 )\57Qr\161") -- 0 - 0.62890625 / 2
 local tmsPeriod = decode8w("\0\16\17\18\19\20\21\22\23\24\25\26\27\28\29\30\31 !\34#$%&'()*+-/\49\51\53\54\57;=?BEGIM"..
@@ -40,16 +40,16 @@ local tmsK8 = decode8("\192\216\240\7\31\55Of")
 local tmsK9 = decode8("\192\212\232\252\16%\57M")
 local tmsK10 = decode8("\205\223\241\4\22 ;M") -- -0.3984375 - 0.6015625
 
--- local function printa(a, l)
--- 	for i = 1, l do
+-- local function printa(a)
+-- 	for i = 1, #a do
 -- 		print(a[i])
 -- 	end
 -- end
--- printa(chirp, chirp_len)
--- printa(tmsEnergy, tmsEnergy_len)
--- printa(tmsPeriod, tmsPeriod_len)
--- printa(tmsK2, tmsK2_len)
--- printa(tmsK10, tmsK10_len)
+-- printa(chirp)
+-- printa(tmsEnergy)
+-- printa(tmsPeriod)
+-- printa(tmsK2)
+-- printa(tmsK10)
 
 local hastalavista = "\14\224>bm\201x\168\137\237\213'\233\174aq\3\0jE\0@r/\128\169l\13\240U\226\52\169Ghe\237\211"..
 	"\164\154a\229\139O\147z\152w,>Mn\158R\217\248\180\57D\154g\149\0\240\16\158\0b<\18\0eg\2\180\236H\0\148\17+\201\34"..
@@ -164,7 +164,7 @@ local function doSynth()
 		if synthPeriod ~= 0 then -- voiced
 			periodCounter = periodCounter + 1
 			if periodCounter >= synthPeriod then periodCounter = 0 end
-			u0 = periodCounter < chirp_len and chirp[periodCounter+1] * synthEnergy or 0
+			u0 = periodCounter < #chirp and chirp[periodCounter+1] * synthEnergy or 0
 		else -- unvoiced
 			local br = band(synthRand, 1) == 1
 			synthRand = rshift(synthRand, 1)
