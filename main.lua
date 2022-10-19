@@ -9,14 +9,15 @@ local function decode8x(s, d, m)
 	end
 	return a, string.len(s)
 end
-local function decode8(s) return decode8x(s, "b", 1/128) end
-local function decode8u(s) return decode8x(s, "B", 1/512) end
+local function decode8(s) return decode8x(s, "b", 1/2^7) end
+local function decode8u(s) return decode8x(s, "B", 1/2^9) end
 local function decode8w(s) return decode8x(s, "B", 1) end
 
 local function decode16(s)
+	local m = 1/2^15
 	local a = {}
 	for i = 1, string.len(s)/2 do
-		table.insert(a, love.data.unpack("<h", s, i*2-1)/32768)
+		table.insert(a, love.data.unpack("<h", s, i*2-1)*m)
 	end
 	return a, string.len(s)/2
 end
