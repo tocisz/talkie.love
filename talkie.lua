@@ -3,7 +3,7 @@ local bit = require("bit")
 local bitstream = require("bitstream")
 local band, bxor, rshift = bit.band, bit.bxor, bit.rshift
 
-local synth = {}
+local talkie = {}
 
 local function decode8x(s, d, m)
 	local a = {}
@@ -151,7 +151,7 @@ local function doSynth(soundData, bits)
 	end -- while true
 end
 
-function synth.synth(bitString)
+function talkie.synth(bitString)
     local bits = bitstream.Bits:new(bitString)
     local length    = getFrameCount(bits)*ticks
     print("length is "..(length/rate).."s")
@@ -160,4 +160,4 @@ function synth.synth(bitString)
     return soundData
 end
 
-return synth
+return talkie

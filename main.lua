@@ -1,5 +1,5 @@
 local love = require("love")
-local synth = require("synth")
+local talkie = require("talkie")
 
 local hastalavista = "\14\224>bm\201x\168\137\237\213'\233\174aq\3\0jE\0@r/\128\169l\13\240U\226\52\169Ghe\237\211"..
 	"\164\154a\229\139O\147z\152w,>Mn\158R\217\248\180\57D\154g\149\0\240\16\158\0b<\18\0eg\2\180\236H\0\148\17+\201\34"..
@@ -16,7 +16,7 @@ local hastalavista = "\14\224>bm\201x\168\137\237\213'\233\174aq\3\0jE\0@r/\128\
 	"\12\192\180\167\2\160\241T\0\208\17\2\128\206C\1\192f)\0\184L\1\0\159\165\0\224#\5\0\156\167\0\128\139\18\0\48\158"..
 	"\2\0\54\18\8\221e\152\155\217~"
 
-local soundData = synth.synth(hastalavista)
+local soundData = talkie.synth(hastalavista)
 local source = love.audio.newSource(soundData)
 source:setLooping(true)
 
