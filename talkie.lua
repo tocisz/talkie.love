@@ -25,6 +25,7 @@ local function decode16(s)
 	return a
 end
 
+-- CONSTANTS
 local chirp = decode8("\0*\212\50\178\18%\20\2\225\197\2_Z\5\15&\252\165\165\214\221\220\252%+\34!\15\255"..
 	"\248\238\237\239\247\246\250\0\3\2\1")
 local tmsEnergy = decode8e("\0\2\3\4\5\7\10\15\20 )\57Qr\161") -- 0 - 0.62890625 / 2
@@ -42,6 +43,8 @@ local tmsK7 = decode8("\179\191\203\215\227\239\251\7\19\31+\55COZf")
 local tmsK8 = decode8("\192\216\240\7\31\55Of")
 local tmsK9 = decode8("\192\212\232\252\16%\57M")
 local tmsK10 = decode8("\205\223\241\4\22 ;M") -- -0.3984375 - 0.6015625
+local rate = 8000 -- samples per second
+local ticks = rate / 40
 
 local function getFrameCount(bits)
 	local energy, rep, period
@@ -68,18 +71,24 @@ local function getFrameCount(bits)
 	return frames
 end
 
-local rate      = 8000 -- samples per second
-local ticks     = rate / 40
+-- local state
+local synthEnergy, synthPeriod, synthK1, synthK2, synthK3, synthK4
+local synthK5, synthK6, synthK7, synthK8, synthK9, synthK10
+local x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, u0
+local synthRand, periodCounter, s, t
 
-local synthEnergy, synthPeriod, synthK1, synthK2, synthK3, synthK4 = 0, 0, 0, 0, 0, 0
-local synthK5, synthK6, synthK7, synthK8, synthK9, synthK10 = 0, 0, 0, 0, 0, 0
-local x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, u0 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-local synthRand = 1
-local periodCounter = 1
+local function reset()
+	synthEnergy, synthPeriod, synthK1, synthK2, synthK3, synthK4 = 0, 0, 0, 0, 0, 0
+	synthK5, synthK6, synthK7, synthK8, synthK9, synthK10 = 0, 0, 0, 0, 0, 0
+	x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, u0 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	synthRand = 1
+	periodCounter = 1
+	s = 0 -- output sample
+	t = ticks -- tick in a frame
+end
 
-local s = 0 -- output sample
-local t = ticks -- tick in a frame
 local function doSynth(soundData, bits)
+	reset()
 	bits:reset()
 	while true do
 		if t >= ticks then
