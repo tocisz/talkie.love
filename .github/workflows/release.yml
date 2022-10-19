@@ -1,0 +1,27 @@
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Luacheck
+        uses: lunarmodules/luacheck@v1.0.0
+
+      - name: Create archive
+        run: |
+          mkdir -p release
+          zip release/terminator.love *.lua data/*
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "release/terminator.love"
