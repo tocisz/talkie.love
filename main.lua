@@ -141,8 +141,7 @@ local function doSynth()
 			else
 				synthEnergy = tmsEnergy[energy+1]
 				local rep = getBits(1)
-				local p = getBits(6)+1
-				synthPeriod = tmsPeriod[p] -- tmsPeriod[1] == 0
+				synthPeriod = tmsPeriod[getBits(6)+1] -- tmsPeriod[1] == 0
 				if rep == 0 then
 					synthK1 = tmsK1[getBits(5)+1]
 					synthK2 = tmsK2[getBits(5)+1]
@@ -164,10 +163,16 @@ local function doSynth()
 		if synthPeriod ~= 0 then -- voiced
 			periodCounter = periodCounter + 1
 			if periodCounter >= synthPeriod then periodCounter = 0 end
-			u0 = periodCounter >= chirp_len and 0 or chirp[periodCounter+1] * synthEnergy
+			u0 = periodCounter < chirp_len and chirp[periodCounter+1] * synthEnergy or 0
 		else -- unvoiced
-			synthRand = bxor(rshift(synthRand, 1), band(synthRand, 1) == 1 and 0xB800 or 0)
-			u0 = band(synthRand, 1) == 1 and synthEnergy or -synthEnergy
+			local br = band(synthRand, 1) == 1
+			synthRand = rshift(synthRand, 1)
+			if br then
+				synthRand = bxor(synthRand, 0xB800)
+				u0 = synthEnergy
+			else
+				u0 = -synthEnergy
+			end
 		end
 		u0 = u0 - synthK10*x9 + synthK9*x8
 		x9 = x8 + synthK9*u0
