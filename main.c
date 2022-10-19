@@ -46,19 +46,19 @@ void print_uint16(int16_t *data, size_t len) {
 }
 
 int main() {
-    fputs("local chirp, chirp_len = decode8(\"", stdout); print_uint8((uint8_t*)chirp, sizeof(chirp)); puts("\")");
-    fputs("local tmsEnergy, tmsEnergy_len = decode8u(\"", stdout); print_uint8(tmsEnergy, sizeof(tmsEnergy)); puts("\")");
-    fputs("local tmsPeriod, tmsPeriod_len = decode8w(\"", stdout); print_uint8(tmsPeriod, sizeof(tmsPeriod)); puts("\")");
-    fputs("local tmsK1, tmsK1_len = decode16(\"", stdout); print_uint16(tmsK1, sizeof(tmsK1)); puts("\")");
-    fputs("local tmsK2, tmsK2_len = decode16(\"", stdout); print_uint16(tmsK2, sizeof(tmsK2)); puts("\")");
-    fputs("local tmsK3, tmsK3_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK3, sizeof(tmsK3)); puts("\")");
-    fputs("local tmsK4, tmsK4_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK4, sizeof(tmsK4)); puts("\")");
-    fputs("local tmsK5, tmsK5_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK5, sizeof(tmsK5)); puts("\")");
-    fputs("local tmsK6, tmsK6_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK6, sizeof(tmsK6)); puts("\")");
-    fputs("local tmsK7, tmsK7_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK7, sizeof(tmsK7)); puts("\")");
-    fputs("local tmsK8, tmsK8_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK8, sizeof(tmsK8)); puts("\")");
-    fputs("local tmsK9, tmsK9_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK9, sizeof(tmsK9)); puts("\")");
-    fputs("local tmsK10, tmsK10_len = decode8(\"", stdout); print_uint8((uint8_t*)tmsK10, sizeof(tmsK10)); puts("\")");
+    fputs("local chirp = decode8(\"", stdout); print_uint8((uint8_t*)chirp, sizeof(chirp)); puts("\")");
+    fputs("local tmsEnergy = decode8e(\"", stdout); print_uint8(tmsEnergy, sizeof(tmsEnergy)); puts("\")");
+    fputs("local tmsPeriod = decode8p(\"", stdout); print_uint8(tmsPeriod, sizeof(tmsPeriod)); puts("\")");
+    fputs("local tmsK1 = decode16(\"", stdout); print_uint16(tmsK1, sizeof(tmsK1)); puts("\")");
+    fputs("local tmsK2 = decode16(\"", stdout); print_uint16(tmsK2, sizeof(tmsK2)); puts("\")");
+    fputs("local tmsK3 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK3, sizeof(tmsK3)); puts("\")");
+    fputs("local tmsK4 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK4, sizeof(tmsK4)); puts("\")");
+    fputs("local tmsK5 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK5, sizeof(tmsK5)); puts("\")");
+    fputs("local tmsK6 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK6, sizeof(tmsK6)); puts("\")");
+    fputs("local tmsK7 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK7, sizeof(tmsK7)); puts("\")");
+    fputs("local tmsK8 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK8, sizeof(tmsK8)); puts("\")");
+    fputs("local tmsK9 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK9, sizeof(tmsK9)); puts("\")");
+    fputs("local tmsK10 = decode8(\"", stdout); print_uint8((uint8_t*)tmsK10, sizeof(tmsK10)); puts("\")");
     puts("\n");
     fputs("local hastalavista = \"", stdout); print_uint8((uint8_t*)spHASTA_LA_VISTA, sizeof(spHASTA_LA_VISTA)); puts("\"");
     fputs("local hello = \"", stdout); print_uint8((uint8_t*)spHELLO, sizeof(spHELLO)); puts("\"");

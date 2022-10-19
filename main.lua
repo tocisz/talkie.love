@@ -10,8 +10,8 @@ local function decode8x(s, d, m)
 	return a
 end
 local function decode8(s) return decode8x(s, "b", 1/2^7) end
-local function decode8u(s) return decode8x(s, "B", 1/2^9) end
-local function decode8w(s) return decode8x(s, "B", 1) end
+local function decode8e(s) return decode8x(s, "B", 1/2^9) end
+local function decode8p(s) return decode8x(s, "B", 1) end
 
 local function decode16(s)
 	local m = 1/2^15
@@ -24,8 +24,8 @@ end
 
 local chirp = decode8("\0*\212\50\178\18%\20\2\225\197\2_Z\5\15&\252\165\165\214\221\220\252%+\34!\15\255"..
 	"\248\238\237\239\247\246\250\0\3\2\1")
-local tmsEnergy = decode8u("\0\2\3\4\5\7\10\15\20 )\57Qr\161") -- 0 - 0.62890625 / 2
-local tmsPeriod = decode8w("\0\16\17\18\19\20\21\22\23\24\25\26\27\28\29\30\31 !\34#$%&'()*+-/\49\51\53\54\57;=?BEGIM"..
+local tmsEnergy = decode8e("\0\2\3\4\5\7\10\15\20 )\57Qr\161") -- 0 - 0.62890625 / 2
+local tmsPeriod = decode8p("\0\16\17\18\19\20\21\22\23\24\25\26\27\28\29\30\31 !\34#$%&'()*+-/\49\51\53\54\57;=?BEGIM"..
 	"OQUW\92_cfjnsw{\128\133\138\143\149\154\160")
 local tmsK1 = decode16("\192\130\128\131\192\131@\132\192\132@\133\0\134\128\135\128\136\128\137\192\138\0\140@\141\0"..
 	"\143\192\144\192\146\0\153@\161\128\171@\184@\199\192\216\192\235\0\0@\20@'\192\56\192G\128T\192^\0g@m")
