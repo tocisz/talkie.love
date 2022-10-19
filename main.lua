@@ -70,7 +70,7 @@ local function brev(a)
 	a = bor(lshift(a, 4), rshift(a, 4))
 	a = bor(lshift(band(a, 0x33), 2), rshift(band(a, 0xcc), 2))
 	a = bor(lshift(band(a, 0x55), 1), rshift(band(a, 0xaa), 1))
-	return a
+	return band(a, 0xff)
 end
 
 local addr = 8
