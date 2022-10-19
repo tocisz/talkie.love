@@ -43,17 +43,6 @@ local tmsK8 = decode8("\192\216\240\7\31\55Of")
 local tmsK9 = decode8("\192\212\232\252\16%\57M")
 local tmsK10 = decode8("\205\223\241\4\22 ;M") -- -0.3984375 - 0.6015625
 
--- local function printa(a)
--- 	for i = 1, #a do
--- 		print(a[i])
--- 	end
--- end
--- printa(chirp)
--- printa(tmsEnergy)
--- printa(tmsPeriod)
--- printa(tmsK2)
--- printa(tmsK10)
-
 local function getFrameCount(bits)
 	local energy, rep, period
 	local frames = 0
