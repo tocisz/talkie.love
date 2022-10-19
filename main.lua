@@ -127,7 +127,7 @@ local synthEnergy, synthPeriod, synthK1, synthK2, synthK3, synthK4 = 0, 0, 0, 0,
 local synthK5, synthK6, synthK7, synthK8, synthK9, synthK10 = 0, 0, 0, 0, 0, 0
 local x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, u0 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 local synthRand = 1
-local periodCounter = 0
+local periodCounter = 1
 
 local s = 0 -- output sample
 local t = ticks -- tick in a frame
@@ -163,8 +163,8 @@ local function doSynth()
 
 		if synthPeriod ~= 0 then -- voiced
 			periodCounter = periodCounter + 1
-			if periodCounter >= synthPeriod then periodCounter = 0 end
-			u0 = periodCounter < #chirp and chirp[periodCounter+1] * synthEnergy or 0
+			if periodCounter > synthPeriod then periodCounter = 1 end
+			u0 = periodCounter <= #chirp and chirp[periodCounter] * synthEnergy or 0
 		else -- unvoiced
 			local br = band(synthRand, 1) == 1
 			synthRand = rshift(synthRand, 1)
