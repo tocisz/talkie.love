@@ -138,7 +138,7 @@ local function doSynth(soundData, bits)
 			end
 		end
 		if synthPeriod ~= 0 then
-			u0 = u0 - synthK10*x9 + synthK9*x8
+			u0 = u0 - (synthK10*x9 + synthK9*x8)
 			x9 = x8 + synthK9*u0
 			u0 = u0 - synthK8*x7
 			x8 = x7 + synthK8*u0
