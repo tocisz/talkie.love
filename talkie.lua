@@ -85,6 +85,15 @@ local function reset()
 	t = ticks -- tick in a frame
 end
 
+local function randomBit()
+	local br = band(synthRand, 1) == 1
+	synthRand = rshift(synthRand, 1)
+	if br then
+		synthRand = bxor(synthRand, 0xB800)
+	end
+	return br
+end
+
 local function doSynth(soundData, bits)
 	reset()
 	bits:reset()
@@ -128,14 +137,7 @@ local function doSynth(soundData, bits)
 			if periodCounter > synthPeriod then periodCounter = 1 end
 			u0 = periodCounter <= #chirp and chirp[periodCounter] * synthEnergy or 0
 		else -- unvoiced
-			local br = band(synthRand, 1) == 1
-			synthRand = rshift(synthRand, 1)
-			if br then
-				synthRand = bxor(synthRand, 0xB800)
-				u0 = synthEnergy
-			else
-				u0 = -synthEnergy
-			end
+			u0 = randomBit() and synthEnergy or -synthEnergy
 		end
 		if synthPeriod ~= 0 then
 			u0 = u0 - (synthK10*x9 + synthK9*x8)
