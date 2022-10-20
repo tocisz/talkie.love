@@ -19,9 +19,9 @@ jobs:
       - name: Create archive
         run: |
           mkdir -p release
-          zip release/terminator.love *.lua data/*
+          zip release/vega.love *.lua data/*
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: "release/terminator.love"
+          files: "release/vega.love"
